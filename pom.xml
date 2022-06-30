@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.janwarlen.learn</groupId>
+    <artifactId>JavaPractice</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>Basic</module>
+        <module>ThirdPartyComponents</module>
+        <module>ThirdPartyComponents/Common</module>
+        <module>ThirdPartyComponents/Curator</module>
+        <module>ThirdPartyComponents/DynamicLogger</module>
+        <module>ThirdPartyComponents/DynamicLogger/BaseJar</module>
+        <module>ThirdPartyComponents/DynamicLogger/DynamicLoggerDemo</module>
+        <module>ThirdPartyComponents/Elastic-job</module>
+        <module>ThirdPartyComponents/MockitoAndPowerMock</module>
+        <module>ThirdPartyComponents/MongoTemplate</module>
+        <module>ThirdPartyComponents/Redis</module>
+        <module>ThirdPartyComponents/RocketMQ</module>
+        <module>ThirdPartyComponents/SpringBootV1</module>
+        <module>ThirdPartyComponents/WebSocket</module>
+        <module>ThirdPartyComponents/SpringBootDateFormat</module>
+    </modules>
+
+</project>
