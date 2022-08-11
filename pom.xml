@@ -24,6 +24,7 @@
         <module>ThirdPartyComponents/SpringBootV1</module>
         <module>ThirdPartyComponents/WebSocket</module>
         <module>ThirdPartyComponents/SpringBootDateFormat</module>
+        <module>ThirdPartyComponents/Netty</module>
     </modules>
 
 </project>

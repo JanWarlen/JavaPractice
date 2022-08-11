@@ -4,6 +4,9 @@ import java.util.Random;
 
 public class SingletonDemo {
 
+    private SingletonDemo() {
+    }
+
     public int flag = 0;
 
     /*
