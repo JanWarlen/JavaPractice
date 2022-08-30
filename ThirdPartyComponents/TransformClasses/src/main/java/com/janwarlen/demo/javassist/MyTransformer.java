@@ -1,5 +1,7 @@
 package com.janwarlen.demo.javassist;
 
+import javassist.*;
+
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.lang.instrument.ClassFileTransformer;
