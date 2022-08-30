@@ -1,6 +1,7 @@
 package com.janwarlen.redis;
 
 
+import com.janwarlen.model.redis.CacheCloudParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +18,13 @@ public class RedisConfig {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(RedisConfig.class);
 
-    @Value("${com.janwarlen.redis.mode}")
+    @Value("${com.janwarlen.redis.mode:single}")
     private String redisMode;
+    /**
+     * 节点定位重试次数:默认5次
+     */
+    @Value("${cachecloud.maxRedirections:5}")
+    private Integer maxRedirections;
 
     @Value("${cachecloud.mode}")
     private String cachecloudMode;
@@ -30,7 +36,6 @@ public class RedisConfig {
     private Integer cachecloudMaxIdle;
     @Value("${cachecloud.min-idle}")
     private Integer cachecloudMinIdle;
-
     @Value("${cachecloud.url}")
     private String cachecloudUrl;
 
@@ -39,6 +44,7 @@ public class RedisConfig {
 
     @Bean
     public RedisConnectionFactory redisConnectionFactory() {
+        LOGGER.info("RedisConnectionFactory-int");
         RedisEnvTypeEnum type = RedisEnvTypeEnum.getType(redisMode);
         if (null == type) {
             LOGGER.error("RedisConfig error:redis mode is null.");
@@ -47,7 +53,10 @@ public class RedisConfig {
         if (RedisEnvTypeEnum.CACHECLOUD.equals(type)) {
             type = RedisEnvTypeEnum.getType(cachecloudMode);
             RedisEnvTypeEnum cachecloudType = RedisEnvTypeEnum.getType(cachecloudMode);
-            RedisInitUtil.setRedisProperties(redisProperties, cachecloudType, cachecloudUrl);
+            CacheCloudParam cachecloudParam = new CacheCloudParam();
+            cachecloudParam.setCachecloudUrl(cachecloudUrl);
+            cachecloudParam.setMaxRedirections(maxRedirections);
+            RedisInitUtil.setRedisProperties(redisProperties, cachecloudType, cachecloudParam);
             RedisProperties.Pool pool = redisProperties.getPool();
             if (Objects.nonNull(cachecloudMaxActive)) {
                 pool.setMaxActive(cachecloudMaxActive);
@@ -61,10 +70,10 @@ public class RedisConfig {
             if (Objects.nonNull(cachecloudMinIdle)) {
                 pool.setMinIdle(cachecloudMinIdle);
             }
-        }
-        if (null == type) {
-            LOGGER.error("RedisConfig error:cachecloud mode is null.");
-            return null;
+            if (null == type) {
+                LOGGER.error("RedisConfig error:cachecloud mode is null.");
+                return null;
+            }
         }
         return getRedisConnectionFactory(type);
     }

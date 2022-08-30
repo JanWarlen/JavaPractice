@@ -6,6 +6,7 @@ import com.janwarlen.constant.DigitConstant;
 import com.janwarlen.constant.StringConstant;
 import com.janwarlen.http.HttpClientUtil;
 import com.janwarlen.model.redis.CacheCloud;
+import com.janwarlen.model.redis.CacheCloudParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
@@ -29,18 +30,22 @@ import java.util.List;
  */
 public class RedisInitUtil {
 
+    public static final String SPACE = " ";
+    public static final String COLON = ":";
+    public static final String COMMA_ENG = ",";
+
     private static final Logger LOGGER = LoggerFactory.getLogger(RedisInitUtil.class);
 
     /**
      * redis模式为cachecloud时，需要更换spring的自扫描配置redisProperties属性值
      */
-    public static void setRedisProperties(RedisProperties redisProperties, RedisEnvTypeEnum type, String cachecloudUrl) {
+    public static void setRedisProperties(RedisProperties redisProperties, RedisEnvTypeEnum type, CacheCloudParam cachecloudParam) {
         if (null == type) {
             LOGGER.error("RedisConfig error:cachecloud mode is null.");
             return;
         }
         // 向cachecloud服务器请求资源
-        String doGetRes = HttpClientUtil.doGet(cachecloudUrl);
+        String doGetRes = HttpClientUtil.doGet(cachecloudParam.getCachecloudUrl());
         CacheCloud cacheCloud = JSONObject.parseObject(doGetRes, CacheCloud.class);
         if (null != cacheCloud) {
             String password = cacheCloud.getPassword();
@@ -49,12 +54,12 @@ public class RedisInitUtil {
             }
             switch (type) {
                 case STANDALONE:
-                    String[] standalone = cacheCloud.getStandalone().split(StringConstant.COLON);
+                    String[] standalone = cacheCloud.getStandalone().split(COLON);
                     redisProperties.setHost(standalone[DigitConstant.ZERO]);
                     redisProperties.setPort(Integer.parseInt(standalone[DigitConstant.ONE]));
                     break;
                 case SENTINEL:
-                    String sentinelNodes = cacheCloud.getSentinels().replace(CharConstant.SPACE, CharConstant.COMMA_ENG);
+                    String sentinelNodes = cacheCloud.getSentinels().replace(SPACE, COMMA_ENG);
                     String masterName = cacheCloud.getMasterName();
                     RedisProperties.Sentinel sentinel = new RedisProperties.Sentinel();
                     sentinel.setMaster(masterName);
@@ -62,9 +67,10 @@ public class RedisInitUtil {
                     redisProperties.setSentinel(sentinel);
                     break;
                 case CLUSTER:
-                    List<String> clusterNodes = Arrays.asList(cacheCloud.getShardInfo().split(StringConstant.SPACE));
+                    List<String> clusterNodes = Arrays.asList(cacheCloud.getShardInfo().split(SPACE));
                     RedisProperties.Cluster cluster = new RedisProperties.Cluster();
                     cluster.setNodes(clusterNodes);
+                    cluster.setMaxRedirects(cachecloudParam.getMaxRedirections());
                     redisProperties.setCluster(cluster);
                     break;
                 default:
@@ -96,11 +102,12 @@ public class RedisInitUtil {
 
     public static JedisShardInfo createStandAloneJedis(RedisProperties redisProperties) {
         JedisShardInfo jedisShardInfo = new JedisShardInfo(redisProperties.getHost(), redisProperties.getPort());
-        jedisShardInfo.setPassword(redisProperties.getPassword());
+        if (!StringUtils.isEmpty(redisProperties.getPassword())) {
+            jedisShardInfo.setPassword(redisProperties.getPassword());
+        }
         jedisShardInfo.setConnectionTimeout(redisProperties.getTimeout());
         return jedisShardInfo;
     }
-
 
     /**
      * 从redisProperties中生成 JedisPoolConfig
