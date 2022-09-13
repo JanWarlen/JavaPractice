@@ -3,24 +3,24 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>JavaPractice</artifactId>
+        <artifactId>BusinessSimulations</artifactId>
         <groupId>com.janwarlen.learn</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>ThirdPartyComponents</artifactId>
+    <artifactId>User-Service</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>TransformClasses</module>
-        <module>TransmittableThreadLocal</module>
-        <module>SpringCloud-Netflix</module>
-        <module>SpringCloud-Alibaba</module>
+        <module>UserService-app</module>
+        <module>UserService-api</module>
     </modules>
+
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
     </properties>
+
 
 </project>

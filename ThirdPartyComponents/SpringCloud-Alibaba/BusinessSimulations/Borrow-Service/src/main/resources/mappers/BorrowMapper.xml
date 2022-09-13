@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.janwarlen.learn.mapper.BorrowMapper">
+    <insert id="borrowBookByUid">
+        insert into t_borrow_record (uid, bid) value (#{uid},#{bid})
+    </insert>
+    <update id="returnBookByUid">
+        update t_borrow_record
+        <set>
+            release=0
+        </set>
+        <where>
+            uid=#{uid}
+            and bid=#{bid}
+            and `release`=1
+        </where>
+    </update>
+
+    <select id="checkBookIsBorrowedByUid" resultType="com.janwarlen.learn.dataobject.BorrowRecordDO">
+        select * from t_borrow_record
+        <where>
+            uid=#{uid}
+            and bid=#{bid}
+            and `release`=1
+        </where>
+    </select>
+</mapper>

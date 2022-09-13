@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.janwarlen.learn.mapper.LibraryMapper">
+    <update id="updateBookById" parameterType="com.janwarlen.learn.dataobject.BookDO">
+        update t_books
+        <set>
+            <if test="book.name != null and book.name!=''">
+                name=#{book.name},
+            </if>
+            <if test="book.inventory != null and book.inventory!=''">
+                inventory=#{book.inventory}
+            </if>
+        </set>
+        <where>
+            id=#{book.id}
+        </where>
+    </update>
+
+    <select id="getBookById" resultType="com.janwarlen.learn.dataobject.BookDO">
+        select * from t_books
+        <where>
+            id=#{id}
+        </where>
+    </select>
+</mapper>
