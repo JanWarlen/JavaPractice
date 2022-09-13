@@ -16,7 +16,6 @@
         <module>TransmittableThreadLocal</module>
         <module>SpringCloud-Netflix</module>
         <module>SpringCloud-Alibaba</module>
-        <module>SpringCloud-Alibaba/Nacos</module>
         <module>SpringCloud-Alibaba/BusinessSimulations/UserService-Alibaba</module>
     </modules>
 
