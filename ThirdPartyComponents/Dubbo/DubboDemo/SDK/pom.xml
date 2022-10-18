@@ -3,21 +3,14 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>JavaPractice</artifactId>
+        <artifactId>Dubbo</artifactId>
         <groupId>com.janwarlen.learn</groupId>
         <version>1.0-SNAPSHOT</version>
+        <relativePath>../../pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>ThirdPartyComponents</artifactId>
-    <packaging>pom</packaging>
-    <modules>
-        <module>TransformClasses</module>
-        <module>TransmittableThreadLocal</module>
-        <module>SpringCloud-Netflix</module>
-        <module>SpringCloud-Alibaba</module>
-        <module>Dubbo</module>
-    </modules>
+    <artifactId>SDK</artifactId>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
