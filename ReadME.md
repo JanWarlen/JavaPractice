@@ -54,4 +54,6 @@ SpringCloud第二代实现Alibaba的入门代码
 流量控制使用sentinel管理
 #### BusinessSimulations
 模拟用的业务代码
+### XXL-JOB
+XXL-JOB入门demo，需要额外搭建xxl-job-admin（依赖MySQL）
 
