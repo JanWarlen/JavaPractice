@@ -13,6 +13,14 @@ public class Demo {
     static ExecutorService executorService = Executors.newFixedThreadPool(2);
     static ExecutorService ttlExecutorService = TtlExecutors.getTtlExecutorService(executorService);
 
+    /**
+     * pool-1-thread-1 get itl:first set
+     * pool-1-thread-2 get ttl:first set
+     * pool-1-thread-2 get itl:first set
+     * pool-1-thread-1 get ttl:second set
+     * pool-1-thread-2 get itl:first set
+     * pool-1-thread-1 get ttl:third set
+     */
     public static void main(String[] args) {
         itl.set("first set");
         ttl.set("first set");

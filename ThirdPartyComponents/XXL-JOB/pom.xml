@@ -3,21 +3,16 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>JavaPractice</artifactId>
+        <artifactId>ThirdPartyComponents</artifactId>
         <groupId>com.janwarlen.learn</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>ThirdPartyComponents</artifactId>
+    <artifactId>XXL-JOB</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>TransformClasses</module>
-        <module>TransmittableThreadLocal</module>
-        <module>SpringCloud-Netflix</module>
-        <module>SpringCloud-Alibaba</module>
-        <module>Dubbo</module>
-        <module>XXL-JOB</module>
+        <module>xxl-job-demo</module>
     </modules>
 
     <properties>
