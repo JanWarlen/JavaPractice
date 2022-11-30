@@ -19,6 +19,7 @@
         <module>Dubbo</module>
         <module>XXL-JOB</module>
         <module>MapStruct</module>
+        <module>Spock</module>
     </modules>
 
     <properties>
