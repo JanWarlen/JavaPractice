@@ -74,6 +74,7 @@
             <scope>test</scope>
         </dependency>
 
+<!--        与Spring项目结合必备依赖，否则无法在单元测试中启动Spring容器-->
         <dependency>
             <groupId>org.spockframework</groupId>
             <artifactId>spock-spring</artifactId>
